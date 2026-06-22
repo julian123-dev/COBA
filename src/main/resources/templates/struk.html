@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Struk Pembayaran - SportSync</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f4f8;
+        }
+        nav {
+            padding: 20px 40px;
+            background-color: #1a1a2e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav h2 {
+            font-size: 24px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 450px;
+            margin: 40px auto;
+        }
+        .struk {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .struk-header {
+            text-align: center;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .struk-header h2 {
+            color: #1a1a2e;
+            font-size: 20px;
+        }
+        .struk-header p {
+            color: #888;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .sukses-badge {
+            display: inline-block;
+            background-color: #d4f8e8;
+            color: #2e8b57;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 10px 0 0 0;
+        }
+        .struk-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        .struk-row span:first-child {
+            color: #777;
+        }
+        .struk-row span:last-child {
+            color: #1a1a2e;
+            font-weight: bold;
+            text-align: right;
+        }
+        .struk-total {
+            border-top: 2px dashed #ccc;
+            margin-top: 10px;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .struk-total span:first-child {
+            font-size: 15px;
+            color: #1a1a2e;
+            font-weight: bold;
+        }
+        .struk-total span:last-child {
+            font-size: 22px;
+            color: #e94560;
+            font-weight: bold;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button, .btn-back {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+        }
+        .btn-print {
+            background-color: #1a1a2e;
+            color: white;
+        }
+        .btn-print:hover {
+            background-color: #2a2a4a;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-back:hover {
+            background-color: #565e64;
+        }
+
+        @media print {
+            nav, .btn-group {
+                display: none;
+            }
+            body {
+                background-color: white;
+            }
+            .container {
+                margin: 0;
+                max-width: 100%;
+            }
+            .struk {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h2><a href="/">SportSync</a></h2>
+</nav>
+
+<div class="container">
+    <div class="struk">
+
+        <div class="struk-header">
+            <h2>Struk Pembayaran</h2>
+            <p>SportSync - Sistem Pembayaran Sport</p>
+            <span class="sukses-badge">✓ Pembayaran Berhasil</span>
+        </div>
+
+        <div class="struk-row">
+            <span>No. Transaksi</span>
+            <span th:text="${pembayaran.id}"></span>
+        </div>
+
+        <div class="struk-row">
+            <span>Nama Pelanggan</span>
+            <span th:text="${pembayaran.namaPelanggan}"></span>
+        </div>
+
+        <div class="struk-row">
+            <span>Metode Pembayaran</span>
+            <span th:text="${pembayaran.metodePembayaran}"></span>
+        </div>
+
+        <div class="struk-total">
+            <span>Total Bayar</span>
+            <span th:text="${'Rp ' + #numbers.formatDecimal(pembayaran.jumlah, 0, 'COMMA', 0, 'POINT')}"></span>
+        </div>
+
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn-print" onclick="window.print()">Cetak Struk</button>
+        </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 16px;">
+        <a href="/lapangan" style="color:white; text-decoration:none; font-size:14px; background-color:#0f3460; padding:8px 16px; border-radius:5px;">← Kembali ke Halaman</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SportSync - Sistem Pembayaran Sport</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f4f8;
+        }
+        nav {
+            padding: 20px 40px;
+            background-color: #1a1a2e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav h2 {
+            font-size: 24px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .card h2 {
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 5px;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #c73650;
+        }
+        .btn-danger-sm {
+            display: inline-block;
+            background-color: transparent;
+            color: #e94560;
+            border: 1px solid #e94560;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-danger-sm:hover {
+            background-color: #e94560;
+            color: white;
+        }
+        .btn-edit-sm {
+            display: inline-block;
+            background-color: transparent;
+            color: #533483;
+            border: 1px solid #533483;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+            margin-right: 6px;
+        }
+        .btn-edit-sm:hover {
+            background-color: #533483;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead {
+            background-color: #1a1a2e;
+        }
+        thead th {
+            color: white;
+            text-align: left;
+            padding: 12px 10px;
+            font-size: 14px;
+        }
+        thead.theme-member {
+            background-color: #0f3460;
+        }
+        thead.theme-history {
+            background-color: #533483;
+        }
+        tbody td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #1a1a2e;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9fb;
+        }
+        tbody tr:hover {
+            background-color: #f0f0f5;
+        }
+        a {
+            color: #0f3460;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h2><a href="/" style="color:white; text-decoration:none;">SportSync</a></h2>
+    <a href="#" style="color:white; text-decoration:none; font-size:14px; background-color:#0f3460; padding:8px 16px; border-radius:5px;">← Kembali ke Halaman</a>
+</nav>
+
+<div class="container">
+
+
+    <div class="card">
+        <h2>Data Member</h2>
+
+        <table>
+            <thead class="theme-member">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>No HP</th>
+                <th>Jenis Kelamin</th>
+                <th>Tanggal Lahir</th>
+                <th>Status</th>
+                <th>Umur</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="m : ${listMember}">
+                <td th:text="${m.id}"></td>
+                <td th:text="${m.name}"></td>
+                <td th:text="${m.email}"></td>
+                <td th:text="${m.phone}"></td>
+                <td th:text="${m.jenisKelamin}"></td>
+                <td th:text="${m.tanggalLahir}"></td>
+                <td th:text="${m.status}"></td>
+                <td th:text="${m.umur}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>History Pembayaran</h2>
+
+        <table>
+            <thead class="theme-history">
+            <tr>
+                <th>ID</th>
+                <th>Nama Member</th>
+                <th>Metode Pembayaran</th>
+                <th>Jumlah</th>
+                <th>Tanggal</th>
+                <th>Aksi</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="h : ${listHistory}">
+                <td th:text="${h.id}"></td>
+                <td th:text="${h.namaMember}"></td>
+                <td th:text="${h.metodePembayaran}"></td>
+                <td th:text="${'Rp ' + #numbers.formatDecimal(h.jumlah, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td th:text="${#temporals.format(h.tanggal,'dd-MM-yyyy (HH:mm:ss)')}"></td>
+                <td>
+                    <a th:href="@{/history/edit/{id}(id=${h.id})}" class="btn-edit-sm">Edit</a>
+                    <a th:href="@{/history/hapus/{id}(id=${h.id})}" class="btn-danger-sm">Hapus</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: center; margin-top: 24px;">
+            <a href="/tambah" class="btn">+ Catat Transaksi</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
