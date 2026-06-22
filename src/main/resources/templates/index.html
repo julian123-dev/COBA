@@ -1,0 +1,163 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SportSync — Modul Staff</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background-color: #f4f4f8;
+      }
+      nav {
+        padding: 20px 40px;
+        background-color: #1a1a2e;
+        color: white;
+      }
+      nav h2 {
+        font-size: 24px;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      .wrap h1 {
+        color: #1a1a2e;
+        font-size: 26px;
+        margin-bottom: 6px;
+      }
+      .wrap p.subtitle {
+        color: #555;
+        margin-bottom: 30px;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .menu-card {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+        text-decoration: none;
+        display: block;
+        min-height: 220px;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .menu-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+      .menu-card .icon {
+        font-size: 42px;
+        margin-bottom: 18px;
+      }
+      .menu-card h3 {
+        color: #1a1a2e;
+        font-size: 19px;
+        margin-bottom: 10px;
+      }
+      .menu-card p {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .menu-card .arrow {
+        display: inline-block;
+        margin-top: 18px;
+        color: #e94560;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h2>SportSync</h2>
+    </nav>
+
+    <div class="wrap">
+      <h1>Manajemen SportSync</h1>
+      <p class="subtitle">
+        Pilih menu untuk mengelola karyawan, member, lapangan, dan operasional
+        SportSync.
+      </p>
+
+      <div class="menu-grid">
+        <!-- Card 1: Manajemen Karyawan (existing) -->
+        <a class="menu-card" th:href="@{/karyawan}">
+          <div class="icon">👤</div>
+          <h3>Manajemen Karyawan</h3>
+          <p>
+            Tambah data karyawan baru, lihat daftar, nonaktifkan, atau hapus
+            karyawan.
+          </p>
+          <span class="arrow">Buka &rarr;</span>
+        </a>
+
+        <!-- Card 2: Jadwal Shift (existing) -->
+        <a class="menu-card" th:href="@{/jadwal}">
+          <div class="icon">🗓️</div>
+          <h3>Jadwal Shift</h3>
+          <p>
+            Buat jadwal shift baru dan cek ketersediaan slot sebelum
+            dijadwalkan.
+          </p>
+          <span class="arrow">Buka &rarr;</span>
+        </a>
+
+        <!-- Card 3: Absensi (existing) -->
+        <a class="menu-card" th:href="@{/absensi}">
+          <div class="icon">✅</div>
+          <h3>Absensi</h3>
+          <p>
+            Catat absensi karyawan, lihat riwayat, dan rekap kehadiran per
+            shift.
+          </p>
+          <span class="arrow">Buka &rarr;</span>
+        </a>
+
+        <!-- Card 4: Kelola Member & History Pembayaran (NEW) -->
+        <a class="menu-card" th:href="@{/member}">
+          <div class="icon">👥💳</div>
+          <h3>Kelola Member &amp; Pembayaran</h3>
+          <p>
+            Kelola data member, status keanggotaan, dan lihat riwayat transaksi
+            pembayaran.
+          </p>
+          <span class="arrow">Buka &rarr;</span>
+        </a>
+
+        <!-- Card 6: Kelola Lapangan (NEW) -->
+        <a class="menu-card" th:href="@{/lapangan}">
+          <div class="icon">🏟️</div>
+          <h3>Kelola Lapangan</h3>
+          <p>
+            Tambah, ubah, atau nonaktifkan data lapangan yang tersedia untuk
+            pemesanan.
+          </p>
+          <span class="arrow">Buka &rarr;</span>
+        </a>
+
+        <!-- Card 6: Laporan & Statistik (NEW) -->
+        <a class="menu-card" th:href="@{/laporan}">
+          <div class="icon">📊</div>
+          <h3>Laporan &amp; Statistik</h3>
+          <p>
+            Lihat rekap pendapatan, kehadiran, dan statistik penggunaan
+            lapangan.
+          </p>
+          <span class="arrow">Buka &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

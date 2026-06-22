@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>SportSync — Manajemen Karyawan</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f8;
+}
+
+nav {
+    padding: 20px 40px;
+    background-color: #1a1a2e;
+    color: white;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #1a1a2e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f4f4f8;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.btn-tambah {
+    background-color: #e94560;
+    color: white;
+}
+
+.btn-tambah:hover {
+    background-color: #c73650;
+}
+
+a {
+    text-decoration: none;
+    font-size: 13px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.danger {
+    color: #e94560;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 8px;
+    width: 220px;
+}
+
+.search-box button {
+    padding: 8px 16px;
+}
+
+.row-actions {
+    display: flex;
+    gap: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<nav style="display:flex; justify-content:space-between;">
+    <h2>SportSync</h2>
+    <a th:href="@{/}" style="color:white;">← Menu</a>
+</nav>
+
+<div class="container">
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Daftar Karyawan</h2>
+
+        <!-- ✅ SEARCH FIX -->
+        <form th:action="@{/karyawan}" method="get" class="search-box">
+            <input type="text" name="cari" th:value="${kataDicari}" placeholder="Cari nama...">
+            <button type="submit">Cari</button>
+        </form>
+    </div>
+
+    <!-- ✅ TABEL -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>No Telp</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="k : ${daftarKaryawan}">
+                <td th:text="${k.idKaryawan}"></td>
+                <td th:text="${k.nama}"></td>
+                <td th:text="${k.email}"></td>
+                <td th:text="${k.nomorTelp}"></td>
+                <td th:text="${k.status}"></td>
+                <td>
+                    <div class="row-actions">
+                        <a th:href="@{/karyawan/form(edit=${k.idKaryawan})}">Edit</a>
+                        <a th:href="@{/karyawan/{id}/hapus(id=${k.idKaryawan})}" 
+                           class="danger"
+                           onclick="return confirm('Yakin mau hapus?')">
+                           Hapus
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <a class="btn btn-tambah" th:href="@{/karyawan/form}">
+        + Tambah Karyawan
+    </a>
+
+</div>
+
+</body>
+</html>

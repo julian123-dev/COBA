@@ -1,0 +1,148 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SportSync — Form Karyawan</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background-color: #f4f4f8;
+      }
+      nav {
+        padding: 20px 40px;
+        background-color: #1a1a2e;
+        color: white;
+      }
+      nav h2 {
+        font-size: 24px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .container h2 {
+        color: #1a1a2e;
+        margin-bottom: 20px;
+      }
+      label {
+        color: #1a1a2e;
+        font-weight: bold;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 16px;
+      }
+      button {
+        background-color: #e94560;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+      }
+      button:hover {
+        background-color: #c73650;
+      }
+      .error-text {
+        color: #e94560;
+        margin-bottom: 10px;
+      }
+      a.back-link {
+        color: #0f3460;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+        display: inline-block;
+        margin-top: 16px;
+      }
+      a.back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      ">
+      <h2>SportSync</h2>
+      <a th:href="@{/}" style="color: white; font-size: 14px"
+        >&larr; Kembali ke Menu Utama</a
+      >
+    </nav>
+
+    <div class="container">
+      <h2 th:text="${modeEdit} ? 'Edit Karyawan' : 'Tambah Karyawan'">
+        Tambah Karyawan
+      </h2>
+      <p class="error-text" th:if="${error}" th:text="${error}"></p>
+
+      <form th:action="@{/karyawan/form}" th:object="${karyawan}" method="post">
+        <input type="hidden" th:field="*{idKaryawan}" />
+
+        <label>Nama:</label>
+        <input
+          type="text"
+          th:field="*{nama}"
+          placeholder="Budi Santoso"
+          required />
+
+        <label>Email:</label>
+        <input
+          type="email"
+          th:field="*{email}"
+          placeholder="budi@sportsync.com"
+          required />
+
+        <div class="grid-2">
+          <div>
+            <label>No HP:</label>
+            <input
+              type="text"
+              th:field="*{nomorTelp}"
+              placeholder="081234567890" />
+          </div>
+          <div>
+            <label>Tanggal Masuk:</label>
+            <input
+              type="date"
+              th:field="*{tanggalMasuk}"
+              th:readonly="${modeEdit}" />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          th:text="${modeEdit} ? 'Simpan Perubahan' : 'Simpan Karyawan'">
+          Simpan Karyawan
+        </button>
+      </form>
+
+      <a class="back-link" th:href="@{/karyawan}"
+        >&larr; Kembali ke Daftar Karyawan</a
+      >
+    </div>
+  </body>
+</html>
